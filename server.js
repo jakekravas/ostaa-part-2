@@ -167,12 +167,15 @@ app.post('/add/user', async function(req, res) {
   if (userExists == null) {
     try {
       await newUser.save();
-      res.send('User saved successfully');
+      // res.end('User saved successfully');
+      res.end(JSON.stringify({text: 'score'}));
     } catch (err) {
       return res.status(500).send('Failed to save user');
     }
   } else {
-    res.send('Username already exists');
+    console.log('already exists');
+    // res.end('Username already exists');
+    res.end(JSON.stringify({text: 'nah'}));
   }
 });
 
@@ -268,39 +271,3 @@ app.post('/add/item/:username', async function(req, res) {
     return res.status(500).send('Failed to save item');
   }
 });
-
-
-
-// check login credentials
-// app.get('/login', async function(req, res) {
-// app.get('/login/:username/:password', async function(req, res) {
-
-//   let username = req.params.username.toLowerCase();
-//   let password = req.params.password;
-
-//   console.log(username)
-//   console.log(password)
-//   console.log('HIT')
-
-//   // find user
-//   let foundUser = await User.findOne({username: username, password: password}).exec();
-
-//   console.log(foundUser)
-
-//   // if (foundUser) {
-//   //   let usersObj = JSON.stringify(foundUser);
-//   //   res.send(usersObj);
-//   // } else {
-//     //   let usersObj = JSON.stringify(foundUser);
-//     //   res.send(true);
-//     // }
-    
-    
-//   let usersObj = JSON.stringify(foundUser);
-
-//   console.log(res.cookie().params)
-//   // console.log(res.cookies)
-
-//   res.send(usersObj);
-
-// });

@@ -103,15 +103,20 @@ signupForm.addEventListener('submit', function(e) {
 
       document.getElementById('signup-username').value = '';
       document.getElementById('signup-password').value = '';
-      // response.text();
-      return response.json()
+      return response.json();
+      // console.log(response)
+      // return response.json()
       // console.log(response.text())
-      // window.location.href = 'http://127.0.0.1:8080/get/users';
-    }).then((text) => {
-      console.log(text)
+
+    }).then((textt) => {
+      console.log(textt)
     }).catch(() => {
       console.log('Something went wrong')
     });
   }
 });
 
+
+
+
+// window.location.href = 'http://127.0.0.1:8080/get/users';
