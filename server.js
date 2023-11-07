@@ -130,7 +130,7 @@ app.get('/search/users/:keyword', async function(req, res) {
   res.end(searchResultsStr);
 });
 
-// get search items of users based on keyword
+// get items based on keyword
 app.get('/search/items/:keyword', async function(req, res) {
   let items = await Item.find({});
 
@@ -168,14 +168,14 @@ app.post('/add/user', async function(req, res) {
     try {
       await newUser.save();
       // res.end('User saved successfully');
-      res.end(JSON.stringify({text: 'score'}));
+      res.end(JSON.stringify({text: 'User saved successfully'}));
     } catch (err) {
       return res.status(500).send('Failed to save user');
     }
   } else {
     console.log('already exists');
     // res.end('Username already exists');
-    res.end(JSON.stringify({text: 'nah'}));
+    res.end(JSON.stringify({text: 'Username already exists'}));
   }
 });
 

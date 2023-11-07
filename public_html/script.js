@@ -66,6 +66,8 @@ loginForm.addEventListener('submit', async e => {
       document.cookie = `username=`;
     }
 
+    window.location.href = '/home.html';
+
   }).catch(() => { 
     alert('something went wrong');
   });
@@ -108,15 +110,11 @@ signupForm.addEventListener('submit', function(e) {
       // return response.json()
       // console.log(response.text())
 
-    }).then((textt) => {
-      console.log(textt)
+    }).then((res) => {
+      console.log(res.text)
+      alert(res.text)
     }).catch(() => {
       console.log('Something went wrong')
     });
   }
 });
-
-
-
-
-// window.location.href = 'http://127.0.0.1:8080/get/users';
