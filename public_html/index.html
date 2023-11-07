@@ -1,0 +1,85 @@
+<!-- Jake Kravas -->
+<!-- This file displays two forms to the user, where they can input
+user and item data -->
+<!DOCTYPE html>
+<html lang='en'>
+<head>
+  <meta charset='UTF-8'>
+  <meta name='viewport' content='width=device-width, initial-scale=1.0'>
+  <link rel='stylesheet' href='style.css'>
+  <title>Ostaa</title>
+</head>
+<body>
+
+  <h1 class='main-header'>Ostaa</h1>
+
+  <!-- Login area -->
+  <div id='login-area'>
+    <h1 class='header'>Login</h1>
+    <form id='login-form'>
+
+      <div class='form-group'>
+        <label for='login-username' class='account-label'>Username</label>
+        <input type='text' name='username' id='login-username' class='account-input'>
+      </div>
+
+      <div class='form-group'>
+        <label for='login-password' class='account-label'>Password</label>
+        <input type='password' name='password' id='login-password' class='account-input'>
+      </div>
+
+      <button type='submit'>Log in</button>
+    </form>
+  </div>
+
+  <!-- Signup area -->
+  <div id='signup-area'>
+    <h1 class='header'>Sign Up</h1>
+    <form id='signup-form'>
+
+      <div class='form-group'>
+        <label for='signup-username' class='account-label'>Username</label>
+        <input type='text' name='username' id='signup-username' class='account-input'>
+      </div>
+
+      <div class='form-group'>
+        <label for='signup-password' class='account-label'>Password</label>
+        <input type='password' name='password' id='signup-password' class='account-input'>
+      </div>
+
+      <button type='submit'>Create account</button>
+    </form>
+  </div>
+  
+  <!-- <div id='item-area'>
+    <h1 class='header'>Add Item</h1>
+    <form id='item-form'>
+      <label for='title-input'>Title</label>
+      <input type='text' name='title' id='title-input' required>
+      <br>
+      <label for='description-input'>Desc</label>
+      <input type='text' name='description' id='description-input' required>
+      <br>
+      <label for='image-input'>Image</label>
+      <input type='text' name='image' id='image-input' required>
+      <br>
+      <label for='price-input'>Price</label>
+      <input type='number' name='price' id='price-input' required>
+      <br>
+      <label for='status-input'>Status</label>
+      <select name='status' id='status-input'>
+        <option value='SALE'>SALE</option>
+        <option value='SOLD'>SOLD</option>
+      </select>
+      <br>
+      <label for='username-item-input'>Username</label>
+      <input type='text' name='username' id='username-item-input' required>
+      <br>
+      <button type='submit'>Add item</button>
+    </form>
+  </div> -->
+
+
+  <script src='script.js' defer></script>
+</body>
+</html>

@@ -1,0 +1,58 @@
+/* Jake Kravas */
+/* this file styles index.html */
+body {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  background-color: #323946;
+  /* background-color: #1f242d; */
+  color: #fff;
+  /* color: #0ef; */
+}
+
+:root {
+  --bg-color: #1f242d;
+  --second-bg-color: #323946;
+  --text-color: #fff;
+  --main-color: #0ef;
+}
+
+.main-header {
+  margin-left: 20px;
+  color: #0ef;
+}
+
+.header {
+  margin: 0;
+  margin-bottom: 10px;
+}
+
+#login-area, #signup-area {
+  margin-top: 50px;
+  margin-left: 20px;
+  width: 300px;
+}
+
+.account-input {
+  margin-bottom: 6px;
+  font-size: 18px;
+}
+
+.account-label {
+  font-size: 18px;
+
+}
+
+.form-group {
+  display: flex;
+  justify-content: space-between;
+  /* width: 200px; */
+}
+
+
+
+#item-area {
+  margin-top: 50px;
+  margin-left: 20px;
+}
