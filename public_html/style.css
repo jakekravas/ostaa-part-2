@@ -127,3 +127,9 @@ body {
   margin-top: 10px;
   width: 200px;
 }
+
+
+.purchased-text {
+  font-size: 14px;
+  font-style: italic;
+}

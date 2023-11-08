@@ -56,9 +56,10 @@ searchForm.addEventListener('submit', function(e) {
 
         if (items[i].stat == 'SALE') {
           // statusHTML = "<button  onclick='buyItem()' class='buy-btn'>Buy now</button>";
-          statusHTML = `<button onclick='buyItem("${items[i]._id}")' class='buy-btn'>Buy now</button>`;
+          // statusHTML = `<button onclick='buyItem("${items[i]._id}")' class='buy-btn'>Buy now</button>`;
+          statusHTML = `<button id="buy-btn-search-${i}" onclick='buyItem("${items[i]._id}", "buy-btn-search-${i}")' class='buy-btn'>Buy now</button>`;
         } else {
-          statusHTML = '<p>Item has been purchased.</p>';
+          statusHTML = '<p class="purchased-text">Item has been purchased.</p>';
         }
 
         resultsHTML += `
@@ -103,9 +104,9 @@ viewListingsBtn.addEventListener('click', function(e) {
 
         if (items[i].stat == 'SALE') {
           // statusHTML = "<button  onclick='buyItem()' class='buy-btn'>Buy now</button>";
-          statusHTML = `<button onclick='buyItem("${items[i]._id}")' class='buy-btn'>Buy now</button>`;
+          statusHTML = `<button id="buy-btn-search-${i}" onclick='buyItem("${items[i]._id}", "buy-btn-search-${i}")' class='buy-btn'>Buy now</button>`;
         } else {
-          statusHTML = '<p>Item has been purchased.</p>';
+          statusHTML = '<p class="purchased-text">Item has been purchased.</p>';
         }
 
         resultsHTML += `
@@ -117,27 +118,6 @@ viewListingsBtn.addEventListener('click', function(e) {
           </div>
         `;
       }
-
-      // for (let i = 0; i < items.length; i++) {
-      //   resultsHTML += `
-      //     <div class='item'>
-      //       <h4 class='item-header'>${items[i].title}</h4>
-      //       <p>${items[i].description}</p>
-      //       <p>Price: ${items[i].price}</p>
-      //       <button onclick='buyItem("${items[i]._id}")' class='buy-btn'>Buy now</button>
-      //     </div>
-      //   `;
-      // }
-      // for (let i = 0; i < items.length; i++) {
-      //   resultsHTML += `
-      //     <div class='item'>
-      //       <h4 class='item-header'>${items[i].title}</h4>
-      //       <p>${items[i].description}</p>
-      //       <p>Price: ${items[i].price}</p>
-      //       <button id="${items[i].id}" class='buy-btn'>Buy now</button>
-      //     </div>
-      //   `;
-      // }
 
 
 
@@ -174,7 +154,7 @@ viewPurchasesBtn.addEventListener('click', function(e) {
             <h4 class='item-header'>${items[i].title}</h4>
             <p>${items[i].description}</p>
             <p>Price: ${items[i].price}</p>
-            <p>Item has been purchased.</p>
+            <p class="purchased-text">Item has been purchased.</p>
           </div>
         `;
       }
@@ -188,15 +168,18 @@ viewPurchasesBtn.addEventListener('click', function(e) {
 });
 
 
-function buyItem(itemId) {
+function buyItem(itemId, buttonId) {
   console.log(itemId)
+  console.log(buttonId)
   console.log('buy')
+
+  let btn = document.getElementById(buttonId);
+  btn.disabled = true;
 
   const info = {
     username: username,
     itemId, itemId
   };
-
 
   let post = fetch('/buy', {
     method: 'POST',
@@ -208,7 +191,7 @@ function buyItem(itemId) {
     return response.json();
 
   }).then((userObject) => {
-
+    btn.textContent = 'SOLD';
     console.log(userObject)
 
   }).catch(() => { 
