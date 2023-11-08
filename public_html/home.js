@@ -3,11 +3,28 @@ This file sends user-inputted data, such as user and item data
 to server.js
 */
 
-let userForm = document.getElementById('user-form');
-let itemForm = document.getElementById('item-form');
-let loginForm = document.getElementById('login-form');
-let signupForm = document.getElementById('signup-form');
 let searchForm = document.getElementById('search-form');
+let viewListingsBtn = document.getElementById('view-listings-btn');
+let viewPurchasesBtn = document.getElementById('view-purchases-btn');
+let logoutBtn = document.getElementById('logout-btn');
+
+let username = document.cookie.split('username=')[1];
+
+// if logged in, display name in header, otherwise, redirect to login page
+if (username) {
+  document.getElementById('welcome-header').innerText = `Welcome ${username}! What would you like to do?`;
+} else {
+  window.location.href = '/';
+}
+
+
+// clear username cookie and redirect to login page
+logoutBtn.addEventListener('click', function(e) {
+  e.preventDefault();
+  
+  document.cookie = `username=`;
+  window.location.href = '/';
+});
 
 
 // Search listings
@@ -35,19 +52,122 @@ searchForm.addEventListener('submit', function(e) {
       let resultsHTML = '';
 
       for (let i = 0; i < items.length; i++) {
+        console.log(items[i]._id)
+        let statusHTML;
+
+        if (items[i].stat == 'SALE') {
+          // statusHTML = "<button  onclick='buyItem()' class='buy-btn'>Buy now</button>";
+          statusHTML = `<button onclick='buyItem("${items[i]._id}")' class='buy-btn'>Buy now</button>`;
+        } else {
+          statusHTML = '<p>Item has been purchased.</p>';
+        }
+
         resultsHTML += `
           <div class='item'>
-            <h4>${items[i].title}</h4>
+            <h4 class='item-header'>${items[i].title}</h4>
             <p>${items[i].description}</p>
-            <button class='buy-btn'>Buy now</button>
+            <p>Price: ${items[i].price}</p>
+            ${statusHTML} 
           </div>
         `;
       }
 
-      document.getElementById('results-area').innerHTML = resultsHTML;
+      document.getElementById('item-results').innerHTML = resultsHTML;
+      document.getElementById('results-header').textContent = 'Search results:';
       
     }).catch(() => {
       console.log('Something went wrong')
     });
   }
 });
+
+
+viewListingsBtn.addEventListener('click', function(e) {
+  e.preventDefault();
+
+  console.log(document.cookie)
+
+  let username = document.cookie.split('username=')[1];
+
+  let searchListings = fetch(`/get/listings/${username}`);
+
+    searchListings.then(response => {
+
+      return response.json();
+
+    }).then((items) => {
+
+      let resultsHTML = '';
+
+      for (let i = 0; i < items.length; i++) {
+        resultsHTML += `
+          <div class='item'>
+            <h4 class='item-header'>${items[i].title}</h4>
+            <p>${items[i].description}</p>
+            <p>Price: ${items[i].price}</p>
+            <button onclick='buyItem("${items[i]._id}")' class='buy-btn'>Buy now</button>
+          </div>
+        `;
+      }
+      // for (let i = 0; i < items.length; i++) {
+      //   resultsHTML += `
+      //     <div class='item'>
+      //       <h4 class='item-header'>${items[i].title}</h4>
+      //       <p>${items[i].description}</p>
+      //       <p>Price: ${items[i].price}</p>
+      //       <button id="${items[i].id}" class='buy-btn'>Buy now</button>
+      //     </div>
+      //   `;
+      // }
+
+      document.getElementById('item-results').innerHTML = resultsHTML;
+      document.getElementById('results-header').textContent = 'Your listings:';
+      
+    }).catch(() => {
+      console.log('Something went wrong')
+    });
+});
+
+
+
+viewPurchasesBtn.addEventListener('click', function(e) {
+  e.preventDefault();
+
+  console.log(document.cookie)
+
+  let username = document.cookie.split('username=')[1];
+
+  let searchPurchases = fetch(`/get/purchases/${username}`);
+
+    searchPurchases.then(response => {
+
+      return response.json();
+
+    }).then((items) => {
+
+      let resultsHTML = '';
+
+      for (let i = 0; i < items.length; i++) {
+        resultsHTML += `
+          <div class='item'>
+            <h4 class='item-header'>${items[i].title}</h4>
+            <p>${items[i].description}</p>
+            <p>Price: ${items[i].price}</p>
+            <p>Item has been purchased.</p>
+          </div>
+        `;
+      }
+
+      document.getElementById('item-results').innerHTML = resultsHTML;
+      document.getElementById('results-header').textContent = 'Your purchases:';
+      
+    }).catch(() => {
+      console.log('Something went wrong')
+    });
+});
+
+
+function buyItem(itemId) {
+  console.log(itemId)
+  console.log('buy')
+}

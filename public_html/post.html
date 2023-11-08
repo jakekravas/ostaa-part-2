@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang='en'>
+<head>
+  <meta charset='UTF-8'>
+  <meta name='viewport' content='width=device-width, initial-scale=1.0'>
+  <link rel='stylesheet' href='style.css'>
+  <title>Ostaa Post</title>
+</head>
+<body>
+
+  <nav id='navbar'>
+    <h1 id='navbar-header'>Ostaa</h1>
+  </nav>
+
+  <div id='create-item-area'>
+    <h1 class='header'>Add Item</h1>
+    <form id='item-form'>
+      <label for='title-input'>Title</label>
+      <input type='text' name='title' id='title-input' required>
+      <br>
+      <label for='description-input'>Desc</label>
+      <input type='text' name='description' id='description-input' required>
+      <br>
+      <label for='image-input'>Image</label>
+      <input type='text' name='image' id='image-input' required>
+      <br>
+      <label for='price-input'>Price</label>
+      <input type='number' name='price' id='price-input' required>
+      <br>
+      <label for='status-input'>Status</label>
+      <select name='status' id='status-input'>
+        <option value='SALE'>SALE</option>
+        <option value='SOLD'>SOLD</option>
+      </select>
+      <br>
+      <label for='username-item-input'>Username</label>
+      <input type='text' name='username' id='username-item-input' required>
+      <br>
+      <button type='submit'>Add item</button>
+    </form>
+  </div>
+
+  <script src='post.js' defer></script>
+</body>
+</html>

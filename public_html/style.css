@@ -77,6 +77,13 @@ body {
   border-right: 1px solid #0ef;
 }
 
+#search-form {
+  margin-bottom: 40px;
+}
+
+.options-area-btn {
+  margin: 8px 0;
+}
 
 #results-area {
   width: 50%;
@@ -95,3 +102,25 @@ body {
   padding: 10px;
   margin: 16px 0;
 }
+
+.item-header {
+  font-size: 28px;
+  margin: 10px 0;
+}
+
+#navbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+#logout-btn {
+  text-decoration: none;
+  color: #fff;
+  font-size: 20px;
+}
+
+#logout-btn:hover {
+  text-decoration: underline;
+}
+

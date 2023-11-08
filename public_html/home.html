@@ -9,32 +9,45 @@
 <body>
 
   <nav id='navbar'>
-    <h1 id="navbar-header">Ostaa</h1>
+    <h1 id='navbar-header'>Ostaa</h1>
+    <a href='/' id='logout-btn'>Logout</a>
   </nav>
 
   <div class='container'>
     <div id='options-area'>
-      <h2>Welcome name! What would you like to do?</h2>
+      <h2 id='welcome-header'>Welcome! What would you like to do?</h2>
   
       <form id='search-form'>
         <input type='text' id='search-input'>
         <button type='submit'>Search Listings</button>
       </form>
+
+      <button id='view-listings-btn' class='options-area-btn'>View your listings</button>
+      <br>
+      <button id='view-purchases-btn' class='options-area-btn'>View your purchases</button>
+      <br>
+      <a href='/post.html'>
+        <button id='create-listing-btn' class='options-area-btn'>Create a listing</button>
+      </a>
   
     </div>
     
     <div id='results-area'>
-      <!-- <div class='item'>
-        <h4>Item title</h4>
-        <p>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Dicta, dolorum?</p>
-        <button class='buy-btn'>Buy now</button>
-      </div> -->
+      <h2 id='results-header'></h2>
+      <div id='item-results'>
+        <!-- <div class='item'>
+          <h4>Item title</h4>
+          <p>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Dicta, dolorum?</p>
+          <button class='buy-btn'>Buy now</button>
+        </div> -->
+      </div>
     </div>
+
 
   </div>
 
 
 
-  <script src='home.js'></script>
+  <script src='home.js' defer></script>
 </body>
 </html>
