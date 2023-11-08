@@ -52,7 +52,6 @@ searchForm.addEventListener('submit', function(e) {
       let resultsHTML = '';
 
       for (let i = 0; i < items.length; i++) {
-        console.log(items[i]._id)
         let statusHTML;
 
         if (items[i].stat == 'SALE') {
@@ -100,15 +99,35 @@ viewListingsBtn.addEventListener('click', function(e) {
       let resultsHTML = '';
 
       for (let i = 0; i < items.length; i++) {
+        let statusHTML;
+
+        if (items[i].stat == 'SALE') {
+          // statusHTML = "<button  onclick='buyItem()' class='buy-btn'>Buy now</button>";
+          statusHTML = `<button onclick='buyItem("${items[i]._id}")' class='buy-btn'>Buy now</button>`;
+        } else {
+          statusHTML = '<p>Item has been purchased.</p>';
+        }
+
         resultsHTML += `
           <div class='item'>
             <h4 class='item-header'>${items[i].title}</h4>
             <p>${items[i].description}</p>
             <p>Price: ${items[i].price}</p>
-            <button onclick='buyItem("${items[i]._id}")' class='buy-btn'>Buy now</button>
+            ${statusHTML} 
           </div>
         `;
       }
+
+      // for (let i = 0; i < items.length; i++) {
+      //   resultsHTML += `
+      //     <div class='item'>
+      //       <h4 class='item-header'>${items[i].title}</h4>
+      //       <p>${items[i].description}</p>
+      //       <p>Price: ${items[i].price}</p>
+      //       <button onclick='buyItem("${items[i]._id}")' class='buy-btn'>Buy now</button>
+      //     </div>
+      //   `;
+      // }
       // for (let i = 0; i < items.length; i++) {
       //   resultsHTML += `
       //     <div class='item'>
@@ -119,6 +138,8 @@ viewListingsBtn.addEventListener('click', function(e) {
       //     </div>
       //   `;
       // }
+
+
 
       document.getElementById('item-results').innerHTML = resultsHTML;
       document.getElementById('results-header').textContent = 'Your listings:';
@@ -170,4 +191,27 @@ viewPurchasesBtn.addEventListener('click', function(e) {
 function buyItem(itemId) {
   console.log(itemId)
   console.log('buy')
+
+  const info = {
+    username: username,
+    itemId, itemId
+  };
+
+
+  let post = fetch('/buy', {
+    method: 'POST',
+    body: JSON.stringify(info),
+    headers: { 'Content-Type': 'application/json'}
+  });
+
+  post.then(response => {
+    return response.json();
+
+  }).then((userObject) => {
+
+    console.log(userObject)
+
+  }).catch(() => { 
+    alert('something went wrong');
+  });
 }

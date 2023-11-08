@@ -9,10 +9,10 @@ itemForm.addEventListener('submit', function(e) {
   let imageVal = document.getElementById('image-input').value;
   let priceVal = document.getElementById('price-input').value;
   let statusVal = document.getElementById('status-input').value;
-  let usernameVal = document.getElementById('username-item-input').value;
+  let usernameVal = document.cookie.split('username=')[1];
 
    // if all required fields are filled out, send them to back-end
-   if (titleVal && descriptionVal && imageVal && priceVal && usernameVal) {
+   if (titleVal && descriptionVal && priceVal && usernameVal) {
     console.log('if hit')
     // object to send to front-end
     const info = {

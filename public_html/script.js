@@ -61,12 +61,13 @@ loginForm.addEventListener('submit', async e => {
       console.log('valid')
       console.log(userObject)
       document.cookie = `username=${userObject.username}`;
+      window.location.href = '/home.html';
     } else {
       console.log('invalid')
       document.cookie = `username=`;
+      alert('Invalid credentials')
     }
 
-    window.location.href = '/home.html';
 
   }).catch(() => { 
     alert('something went wrong');

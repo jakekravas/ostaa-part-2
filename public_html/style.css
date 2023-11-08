@@ -57,8 +57,6 @@ body {
   margin-left: 20px;
 }
 
-
-
 #navbar {
   margin: 0;
   padding: 30px;
@@ -124,3 +122,8 @@ body {
   text-decoration: underline;
 }
 
+#post-area {
+  margin-left: 30px;
+  margin-top: 10px;
+  width: 200px;
+}

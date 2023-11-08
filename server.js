@@ -139,7 +139,7 @@ app.get('/search/items/:keyword', async function(req, res) {
   // for each item, if the keyword is included in its description,
   // add it to searchResults
   for (let i = 0; i < items.length; i++) {
-    if (items[i].description.includes(req.params.keyword)) {
+    if (items[i].description.toLowerCase().includes(req.params.keyword.toLowerCase())) {
       searchResults.push(items[i])
     }
   }
@@ -271,3 +271,61 @@ app.post('/add/item/:username', async function(req, res) {
     return res.status(500).send('Failed to save item');
   }
 });
+
+
+app.post('/buy', async function(req, res) {
+  let username = req.body.username;
+  let itemId = req.body.itemId;
+  console.log('HIT')
+  console.log(username)
+  console.log(itemId)
+
+  try {
+
+    let user = await User.findOne({ username: username });
+    console.log(user)
+    let userPurchases = user.purchases;
+    userPurchases.push(itemId);
+
+    await Item.updateOne(
+      {_id: itemId},
+      {$set : {stat: 'SOLD'}},
+    ).exec();
+
+    await User.updateOne(
+      { username: username },
+      { $set: {purchases: userPurchases} }
+    ).exec();
+
+    // let user = await User.findOne({username: username});
+
+    // // if status is "SALE", save item to user's listings
+    // if (status == 'SALE') {
+    //   let newListings = user.listings;
+    //   newListings.push(newItem.id);
+  
+    //   User.updateOne(
+    //     { _id: user.id },
+    //     { $set: {listings: newListings} }
+    //   ).exec();
+
+    // // if status is "SOLD", save item to user's purchases
+    // } else if (status == 'SOLD') {
+
+    //   let newPurchases = user.purchases;
+    //   newPurchases.push(newItem.id);
+  
+    //   User.updateOne(
+    //     { _id: user.id },
+    //     { $set: {purchases: newPurchases} }
+    //   ).exec();
+    // }
+
+    // // await newItem.save();
+    // return res.send('Item saved successfully');
+    // return res.send('Item purchased successfully');
+    return res.send({text: 'Item purchased successfully'});
+  } catch (err) {
+    return res.status(500).send('Failed to purchase item');
+  }
+})
