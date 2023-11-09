@@ -1,6 +1,8 @@
 /* Jake Kravas
 This file receives data from the front end,
-and adds users and items to the database
+adds users and items to the database,
+updates status of items,
+searches for items
 */
 
 const express = require('express');
@@ -187,36 +189,22 @@ app.post('/login', async function(req, res) {
 
   console.log(username)
   console.log(password)
-  console.log('HIT')
 
   // find user
   let foundUser = await User.findOne({username: username, password: password}).exec();
 
   console.log(foundUser)
-
-  // if (foundUser) {
-  //   let usersObj = JSON.stringify(foundUser);
-  //   res.send(usersObj);
-  // } else {
-  //     let usersObj = JSON.stringify(foundUser);
-  //     res.send(true);
-  //   }
     
   let usersObj = JSON.stringify(foundUser);
 
   console.log(res.cookie())
-  // console.log(res.cookie().body)
-  // console.log(res.cookie().cookies)
   console.log(res.req)
   console.log(res.req.cookies)
 
-  // USER LATER
-  let cookies = res.req.cookies.username;
 
   res.send(usersObj);
 
 });
-
 
 
 // Save new item
@@ -273,10 +261,11 @@ app.post('/add/item/:username', async function(req, res) {
 });
 
 
+// buy item. change it's stat from "SALE" to "SOLD"
 app.post('/buy', async function(req, res) {
   let username = req.body.username;
   let itemId = req.body.itemId;
-  console.log('HIT')
+
   console.log(username)
   console.log(itemId)
 
@@ -297,35 +286,9 @@ app.post('/buy', async function(req, res) {
       { $set: {purchases: userPurchases} }
     ).exec();
 
-    // let user = await User.findOne({username: username});
 
-    // // if status is "SALE", save item to user's listings
-    // if (status == 'SALE') {
-    //   let newListings = user.listings;
-    //   newListings.push(newItem.id);
-  
-    //   User.updateOne(
-    //     { _id: user.id },
-    //     { $set: {listings: newListings} }
-    //   ).exec();
-
-    // // if status is "SOLD", save item to user's purchases
-    // } else if (status == 'SOLD') {
-
-    //   let newPurchases = user.purchases;
-    //   newPurchases.push(newItem.id);
-  
-    //   User.updateOne(
-    //     { _id: user.id },
-    //     { $set: {purchases: newPurchases} }
-    //   ).exec();
-    // }
-
-    // // await newItem.save();
-    // return res.send('Item saved successfully');
-    // return res.send('Item purchased successfully');
     return res.send({text: 'Item purchased successfully'});
   } catch (err) {
     return res.status(500).send('Failed to purchase item');
   }
-})
+});

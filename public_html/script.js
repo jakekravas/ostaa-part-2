@@ -23,28 +23,6 @@ loginForm.addEventListener('submit', async e => {
     password: passwordVal
   }
 
-  // let checkCredentials = fetch(`/login/${usernameVal}/${passwordVal}`);
-
-  // checkCredentials.then( (response) => {
-  //   return response.json();
-
-  // }).then((userObject) => {
-
-  //   if (userObject) {
-  //     console.log('valid')
-  //     console.log(userObject)
-  //     document.cookie = `username=${userObject.username}`;
-  //   } else {
-  //     console.log('invalid')
-  //     document.cookie = `username=`;
-  //   }
-
-  // }).catch(() => { 
-  //   alert('something went wrong');
-  // });
-
-
-
 
   let post = fetch('/login', {
     method: 'POST',
@@ -74,7 +52,6 @@ loginForm.addEventListener('submit', async e => {
   });
 
 });
-
 
 
 // Create and save user

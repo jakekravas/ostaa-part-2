@@ -32,56 +32,56 @@ searchForm.addEventListener('submit', function(e) {
   e.preventDefault();
 
   let searchVal = document.getElementById('search-input').value;
+  let fetchUrl;
 
   console.log(searchVal);
 
-   // if both username and password are not empty, send them to back-end
+   // if search val is not empty, get items of search
    if (searchVal) {
+    fetchUrl = `/search/items/${searchVal}`;
+  // if search val is empty, get all items
+  } else {
+    fetchUrl = `/get/items`;
+   }
 
-    let searchListings = fetch(`/search/items/${searchVal}`);
+    let searchListings = fetch(fetchUrl);
 
     searchListings.then(response => {
 
       return response.json();
-      // console.log(response)
-      // return response.json()
-      // console.log(response.text())
 
     }).then((items) => {
 
-      let resultsHTML = '';
+    let resultsHTML = '';
 
-      for (let i = 0; i < items.length; i++) {
-        let statusHTML;
+    for (let i = 0; i < items.length; i++) {
+      let statusHTML;
 
-        if (items[i].stat == 'SALE') {
-          // statusHTML = "<button  onclick='buyItem()' class='buy-btn'>Buy now</button>";
-          // statusHTML = `<button onclick='buyItem("${items[i]._id}")' class='buy-btn'>Buy now</button>`;
-          statusHTML = `<button id="buy-btn-search-${i}" onclick='buyItem("${items[i]._id}", "buy-btn-search-${i}")' class='buy-btn'>Buy now</button>`;
-        } else {
-          statusHTML = '<p class="purchased-text">Item has been purchased.</p>';
-        }
-
-        resultsHTML += `
-          <div class='item'>
-            <h4 class='item-header'>${items[i].title}</h4>
-            <p>${items[i].description}</p>
-            <p>Price: ${items[i].price}</p>
-            ${statusHTML} 
-          </div>
-        `;
+      if (items[i].stat == 'SALE') {
+        statusHTML = `<button id="buy-btn-search-${i}" onclick='buyItem("${items[i]._id}", "buy-btn-search-${i}")' class='buy-btn'>Buy now</button>`;
+      } else {
+        statusHTML = '<p class="purchased-text">Item has been purchased.</p>';
       }
 
-      document.getElementById('item-results').innerHTML = resultsHTML;
-      document.getElementById('results-header').textContent = 'Search results:';
-      
-    }).catch(() => {
-      console.log('Something went wrong')
-    });
-  }
+      resultsHTML += `
+        <div class='item'>
+          <h4 class='item-header'>${items[i].title}</h4>
+          <p>${items[i].description}</p>
+          <p>Price: ${items[i].price}</p>
+          ${statusHTML} 
+        </div>
+      `;
+    }
+
+    document.getElementById('item-results').innerHTML = resultsHTML;
+    document.getElementById('results-header').textContent = 'Search results:';
+    
+  }).catch(() => {
+    console.log('Something went wrong')
+  });
 });
 
-
+// view listings of logged-in user
 viewListingsBtn.addEventListener('click', function(e) {
   e.preventDefault();
 
@@ -91,46 +91,46 @@ viewListingsBtn.addEventListener('click', function(e) {
 
   let searchListings = fetch(`/get/listings/${username}`);
 
-    searchListings.then(response => {
+  searchListings.then(response => {
 
-      return response.json();
+    return response.json();
 
-    }).then((items) => {
+  }).then((items) => {
 
-      let resultsHTML = '';
+    let resultsHTML = '';
 
-      for (let i = 0; i < items.length; i++) {
-        let statusHTML;
+    // for each item, create appropriate HTML and add it to DOM
+    for (let i = 0; i < items.length; i++) {
+      let statusHTML;
 
-        if (items[i].stat == 'SALE') {
-          // statusHTML = "<button  onclick='buyItem()' class='buy-btn'>Buy now</button>";
-          statusHTML = `<button id="buy-btn-search-${i}" onclick='buyItem("${items[i]._id}", "buy-btn-search-${i}")' class='buy-btn'>Buy now</button>`;
-        } else {
-          statusHTML = '<p class="purchased-text">Item has been purchased.</p>';
-        }
-
-        resultsHTML += `
-          <div class='item'>
-            <h4 class='item-header'>${items[i].title}</h4>
-            <p>${items[i].description}</p>
-            <p>Price: ${items[i].price}</p>
-            ${statusHTML} 
-          </div>
-        `;
+      if (items[i].stat == 'SALE') {
+        // statusHTML = "<button  onclick='buyItem()' class='buy-btn'>Buy now</button>";
+        statusHTML = `<button id="buy-btn-search-${i}" onclick='buyItem("${items[i]._id}", "buy-btn-search-${i}")' class='buy-btn'>Buy now</button>`;
+      } else {
+        statusHTML = '<p class="purchased-text">Item has been purchased.</p>';
       }
 
+      resultsHTML += `
+        <div class='item'>
+          <h4 class='item-header'>${items[i].title}</h4>
+          <p>${items[i].description}</p>
+          <p>Price: ${items[i].price}</p>
+          ${statusHTML} 
+        </div>
+      `;
+    }
 
+    document.getElementById('item-results').innerHTML = resultsHTML;
+    document.getElementById('results-header').textContent = 'Your listings:';
+    
+  }).catch(() => {
+    console.log('Something went wrong')
+  });
 
-      document.getElementById('item-results').innerHTML = resultsHTML;
-      document.getElementById('results-header').textContent = 'Your listings:';
-      
-    }).catch(() => {
-      console.log('Something went wrong')
-    });
 });
 
 
-
+// view purchases of logged-in user
 viewPurchasesBtn.addEventListener('click', function(e) {
   e.preventDefault();
 
@@ -140,38 +140,38 @@ viewPurchasesBtn.addEventListener('click', function(e) {
 
   let searchPurchases = fetch(`/get/purchases/${username}`);
 
-    searchPurchases.then(response => {
+  searchPurchases.then(response => {
 
-      return response.json();
+    return response.json();
 
-    }).then((items) => {
+  }).then((items) => {
 
-      let resultsHTML = '';
+    let resultsHTML = '';
 
-      for (let i = 0; i < items.length; i++) {
-        resultsHTML += `
-          <div class='item'>
-            <h4 class='item-header'>${items[i].title}</h4>
-            <p>${items[i].description}</p>
-            <p>Price: ${items[i].price}</p>
-            <p class="purchased-text">Item has been purchased.</p>
-          </div>
-        `;
-      }
+    // for each item, create appropriate HTML and add it to DOM
+    for (let i = 0; i < items.length; i++) {
+      resultsHTML += `
+        <div class='item'>
+          <h4 class='item-header'>${items[i].title}</h4>
+          <p>${items[i].description}</p>
+          <p>Price: ${items[i].price}</p>
+          <p class="purchased-text">Item has been purchased.</p>
+        </div>
+      `;
+    }
 
-      document.getElementById('item-results').innerHTML = resultsHTML;
-      document.getElementById('results-header').textContent = 'Your purchases:';
-      
-    }).catch(() => {
-      console.log('Something went wrong')
-    });
+    document.getElementById('item-results').innerHTML = resultsHTML;
+    document.getElementById('results-header').textContent = 'Your purchases:';
+    
+  }).catch(() => {
+    console.log('Something went wrong')
+  });
 });
 
-
+// purchase item
 function buyItem(itemId, buttonId) {
   console.log(itemId)
   console.log(buttonId)
-  console.log('buy')
 
   let btn = document.getElementById(buttonId);
   btn.disabled = true;

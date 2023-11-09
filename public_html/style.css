@@ -1,5 +1,6 @@
 /* Jake Kravas */
-/* this file styles index.html */
+/* this file styles index.html, home.html, post.html */
+
 body {
   margin: 0;
   padding: 0;
@@ -9,13 +10,6 @@ body {
   /* background-color: #1f242d; */
   color: #fff;
   /* color: #0ef; */
-}
-
-:root {
-  --bg-color: #1f242d;
-  --second-bg-color: #323946;
-  --text-color: #fff;
-  --main-color: #0ef;
 }
 
 .main-header {
@@ -28,8 +22,14 @@ body {
   margin-bottom: 10px;
 }
 
-#login-area, #signup-area {
+#login-area {
   margin-top: 50px;
+  margin-left: 20px;
+  width: 300px;
+}
+
+#signup-area {
+  margin-top: 140px;
   margin-left: 20px;
   width: 300px;
 }
@@ -106,6 +106,10 @@ body {
   margin: 10px 0;
 }
 
+#item-form > .form-group {
+  margin: 20px 0;
+}
+
 #navbar {
   display: flex;
   justify-content: space-between;
@@ -132,4 +136,8 @@ body {
 .purchased-text {
   font-size: 14px;
   font-style: italic;
+}
+
+button:hover {
+  cursor: pointer;
 }
