@@ -42,7 +42,7 @@ searchForm.addEventListener('submit', function(e) {
   // if search val is empty, get all items
   } else {
     fetchUrl = `/get/items`;
-   }
+  }
 
     let searchListings = fetch(fetchUrl);
 
@@ -67,6 +67,7 @@ searchForm.addEventListener('submit', function(e) {
         <div class='item'>
           <h4 class='item-header'>${items[i].title}</h4>
           <p>${items[i].description}</p>
+          <p>${items[i].image}</p>
           <p>Price: ${items[i].price}</p>
           ${statusHTML} 
         </div>
@@ -114,6 +115,7 @@ viewListingsBtn.addEventListener('click', function(e) {
         <div class='item'>
           <h4 class='item-header'>${items[i].title}</h4>
           <p>${items[i].description}</p>
+          <p>${items[i].image}</p>
           <p>Price: ${items[i].price}</p>
           ${statusHTML} 
         </div>
@@ -154,6 +156,7 @@ viewPurchasesBtn.addEventListener('click', function(e) {
         <div class='item'>
           <h4 class='item-header'>${items[i].title}</h4>
           <p>${items[i].description}</p>
+          <p>${items[i].image}</p>
           <p>Price: ${items[i].price}</p>
           <p class="purchased-text">Item has been purchased.</p>
         </div>
